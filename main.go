@@ -57,14 +57,14 @@ func main() {
 	}
 	fmt.Println(tempRow)
 
-	os.Exit(1)
+
 	//How to insert into couchbase bucket
 	var myData master
 
 	form := make(url.Values, 0)
 	form.Add("bucket", "royaltypool") //bucket and collection-> namespace:bucket.scope.collection
-	form.Add("aid", "d008")           //document ID
-	form.Add("data", "")
+	form.Add("aid", "d009")           //document ID
+	form.Add("data", tempRow[2])
 
 	// form.Add("age", "36")
 	// form.Add("profession", "Developer")
