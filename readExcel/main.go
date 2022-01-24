@@ -13,11 +13,6 @@ func main() {
     }
     defer f.Close()
     
-    cell, err := f.GetCellValue("Sheet1", "B2")
-    if err != nil {
-        fmt.Println(err)
-    }
-    fmt.Println(cell)
     rows, err := f.GetRows("Sheet1")
     if err != nil {
         fmt.Println(err)
