@@ -40,7 +40,6 @@ func main() {
 		fmt.Println(err)
 	}
 	defer f.Close()
-	
 
 	rows, err := f.GetRows("Sheet1")
 	if err != nil {
@@ -50,15 +49,14 @@ func main() {
 	// if err != nil {
 	// 	panic(err)
 	// }
-	
-	for _, row := range rows {
-		for _, colCell := range row {
-			fmt.Print(colCell, " ")
 
-		}
-		fmt.Println()
+	// tableData := [][]string{}
+	var tempRow []string
+	for _, row := range rows {
+		tempRow = append(tempRow, row...)
 	}
-	
+	fmt.Println(tempRow)
+
 	os.Exit(1)
 	//How to insert into couchbase bucket
 	var myData master
@@ -66,7 +64,7 @@ func main() {
 	form := make(url.Values, 0)
 	form.Add("bucket", "royaltypool") //bucket and collection-> namespace:bucket.scope.collection
 	form.Add("aid", "d008")           //document ID
-	form.Add("data", "rows1")
+	form.Add("data", "")
 
 	// form.Add("age", "36")
 	// form.Add("profession", "Developer")
