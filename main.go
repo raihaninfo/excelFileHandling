@@ -45,12 +45,7 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	// rows, err := f.GetCols("Sheet1")
-	// if err != nil {
-	// 	panic(err)
-	// }
 
-	// tableData := [][]string{}
 	var tempRow []string
 	for _, row := range rows {
 		tempRow = append(tempRow, row...)
@@ -66,11 +61,6 @@ func main() {
 	form.Add("aid", "d009")           //document ID
 	form.Add("data", tempRow[2])
 
-	// form.Add("age", "36")
-	// form.Add("profession", "Developer")
-	// form.Add("hobbies", "Programming")
-	// form.Add("hobbies", "Problem Solving")
-	// form.Add("type", "participant") //what type of data or table name in general (SQL)
 
 	p := db.Insert(form, &myData)    //pass by reference (&myData)
 	fmt.Println("Status:", p.Status) //p.Status == Success means data successfully inserted to bucket.
