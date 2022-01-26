@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"net/url"
 	"os"
 
 	"github.com/mateors/mcb"
@@ -11,13 +10,13 @@ import (
 
 var db *mcb.DB
 
-type master struct {
-	Data []string `json:"data"`
-	// Age        int      `json:"age"`
-	// Profession string   `json:"profession"`
-	// Hobbies    []string `json:"hobbies"`
-	// Type       string   `json:"type"`
-}
+// type master struct {
+// 	Data []string `json:"data"`
+// 	// Age        int      `json:"age"`
+// 	// Profession string   `json:"profession"`
+// 	// Hobbies    []string `json:"hobbies"`
+// 	// Type       string   `json:"type"`
+// }
 
 func init() {
 
@@ -52,17 +51,28 @@ func main() {
 	}
 	fmt.Println(tempRow)
 
-
 	//How to insert into couchbase bucket
-	var myData master
+	// var myData master
 
-	form := make(url.Values, 0)
-	form.Add("bucket", "royaltypool") //bucket and collection-> namespace:bucket.scope.collection
-	form.Add("aid", "d009")           //document ID
-	form.Add("data", tempRow[2])
+	d := db.Query(`INSERT INTO 'royaltypool'.raihan.client (KEY,VALUE)
+VALUES ( "airline_4",
+    { "callsign": "MY-AIR",
+      "country": "United States",
+      "iata": "Z1",
+      "icao": "AQZ",
+      "name": "80-My Air",
+      "id": "4444",
+      "type": "airline"} ),
+VALUES ( "airline_4",
+    { "callsign": "AIR-X",
+      "country": "United States",
+      "iata": "X1",
+      "icao": "ARX",
+      "name": "10-AirX",
+      "id": "4445",
+      "type": "airline"} )
+RETURNING *;`)
 
-
-	p := db.Insert(form, &myData)    //pass by reference (&myData)
-	fmt.Println("Status:", p.Status) //p.Status == Success means data successfully inserted to bucket.
+	fmt.Println(d)
 
 }
